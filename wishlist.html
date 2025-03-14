@@ -1,0 +1,293 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Wishlist{% endblock %}
+
+{% block content %}
+    <!-- Product Gallery Section -->
+    <div class="product-gallery">
+        <h3>Choose Products to Add to Wishlist</h3>
+        <div class="gallery-items">
+            <!-- Product images displayed here -->
+            <div class="product-item">
+                <img src="{% static 'images/wishlist1.jpg' %}" alt="Product 1">
+                <button class="add-to-wishlist" data-name="Product 1" data-price="20.00" data-image="https://via.placeholder.com/200">Add to Wishlist</button>
+            </div>
+            <div class="product-item">
+                <img src="{% static 'images/wishlist2.jpg' %}" alt="Product 2">
+                <button class="add-to-wishlist" data-name="Product 2" data-price="15.00" data-image="https://via.placeholder.com/200">Add to Wishlist</button>
+            </div>
+            <div class="product-item">
+                <img src="{% static 'images/wishlist3.jpg' %}" alt="Product 3">
+                <button class="add-to-wishlist" data-name="Product 3" data-price="25.00" data-image="https://via.placeholder.com/200">Add to Wishlist</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Section -->
+    <div class="wishlist-container" id="wishlist-container">
+        <h3>Your Wishlist</h3>
+        <!-- Wishlist items will appear here dynamically -->
+    </div>
+
+    <!-- Clear Wishlist Button -->
+    <div class="wishlist-footer">
+        <button class="clear-wishlist-btn">Clear Wishlist</button>
+        <button class="proceed-to-cart-btn">Proceed to Cart</button>
+    </div>
+
+    <!-- Login/Signup Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-modal">&times;</span>
+            <h2>Please Log In to Proceed</h2>
+            <button id="login-btn">Login</button>
+            <button id="signup-btn">Sign Up</button>
+        </div>
+    </div>
+
+    <style>
+        /* Styling for Product Gallery */
+        .product-gallery {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .gallery-items {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .product-item {
+            margin: 15px;
+            text-align: center;
+        }
+
+        .product-item img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .add-to-wishlist {
+            margin-top: 10px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-wishlist:hover {
+            background-color: #2980b9;
+        }
+
+        /* Wishlist Section */
+        .wishlist-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+            margin-top: 30px;
+        }
+
+        .wishlist-item {
+            background-color: #fff;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 10px;
+            width: 80%;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .wishlist-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .remove-item {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .remove-item:hover {
+            background-color: #c0392b;
+        }
+
+        /* Body Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            padding-bottom: 80px; /* Add space at the bottom to avoid footer overlap */
+        }
+
+        /* Footer Styles */
+        .wishlist-footer {
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure footer stays at the bottom */
+        }
+
+        .clear-wishlist-btn {
+            background-color: #f39c12;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+        }
+
+        .clear-wishlist-btn:hover {
+            background-color: #e67e22;
+        }
+
+        .proceed-to-cart-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .proceed-to-cart-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Modal for Login/Signup */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #login-btn,
+        #signup-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 1.2em;
+        }
+
+        #login-btn:hover,
+        #signup-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+
+    <script>
+        const addToWishlistBtns = document.querySelectorAll('.add-to-wishlist');
+        const wishlistContainer = document.getElementById('wishlist-container');
+        const proceedToCartBtn = document.querySelector('.proceed-to-cart-btn');
+        const modal = document.getElementById('login-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+
+        let isLoggedIn = false; // Replace with real authentication check
+
+        addToWishlistBtns.forEach(button => {
+            button.addEventListener('click', function () {
+                if (!isLoggedIn) {
+                    modal.style.display = "block";
+                    return;
+                }
+
+                const name = this.getAttribute('data-name');
+                const price = parseFloat(this.getAttribute('data-price'));
+                const image = this.getAttribute('data-image');
+
+                const newItem = document.createElement('div');
+                newItem.classList.add('wishlist-item');
+                newItem.innerHTML = `
+                    <img src="${image}" alt="${name}">
+                    <h4>${name}</h4>
+                    <p>Price: $${price}</p>
+                    <button class="remove-item">Remove</button>
+                `;
+                wishlistContainer.appendChild(newItem);
+                newItem.querySelector('.remove-item').addEventListener('click', () => {
+                    newItem.remove();
+                });
+            });
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = "none";
+        });
+
+        proceedToCartBtn.addEventListener('click', () => {
+            if (!isLoggedIn) {
+                modal.style.display = "block";
+            } else {
+                window.location.href = "/cart";
+            }
+        });
+
+        loginBtn.addEventListener('click', () => {
+            window.location.href = "/login";
+        });
+
+        signupBtn.addEventListener('click', () => {
+            window.location.href = "/signup";
+        });
+    </script>
+
+{% endblock %}

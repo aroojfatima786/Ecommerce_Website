@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - E-Commerce{% endblock %}
+
+{% block content %}
+<section class="auth-form">
+    <h1>Login</h1>
+    <form id="login-form" method="POST">
+
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+    
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+    
+        <div class="extra-options">
+            <label>
+                <input type="checkbox" name="remember_me"> Remember Me
+            </label>
+            <a href="/reset-password">Forgot Password?</a>
+        </div>
+    
+        <button type="submit" class="btn">Login</button>
+    </form>
+    
+    <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+</section>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let form = document.getElementById("login-form");
+        if (!form) {
+            console.error("Login form not found! Check your HTML.");
+            return;
+        }
+        
+        console.log("JavaScript Loaded, Form Found!");  // ✅ Debugging
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            console.log("Login form submitted!");  // ✅ Debugging
+
+            fetch('/login/', {
+                method: 'POST',
+                body: new FormData(form)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Server Response:", data);  // ✅ Debugging
+                
+                if (data.redirect_url) {
+                    console.log("Redirecting to:", data.redirect_url);
+                    window.location.href = data.redirect_url;
+                } else {
+                    alert("Invalid credentials. Try again!");
+                }
+            })
+            .catch(error => console.error("Fetch Error:", error));
+        });
+    });
+</script>
+
+
+{% endblock %}

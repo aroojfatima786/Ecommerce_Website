@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - E-Commerce{% endblock %}
+{% load static %}
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <h1>Welcome to Our Store!</h1>
+    <p>Explore a wide variety of products to suit your needs.</p>
+    <a href="{% url 'product_list' %}" class="btn">Shop Now</a>
+</section>
+
+<!-- Featured Products Section -->
+<section class="product-grid">
+    <h2>Featured Products</h2>
+    <div class="grid">
+        {% for product in products %}
+        <div class="product-item">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+            <img src="{% static 'images/product1_image.jpg' %}" alt="Default Image">
+            {% endif %}
+            <h3>{{ product.name }}</h3>  <!-- Product name -->
+            <p>${{ product.price }}</p>  <!-- Product price -->
+            <a href="{% url 'product_detail' product.id %}" class="btn">View Details</a>
+            <p>Product ID: {{ product.id }}</p>
+        </div>
+
+        <div class="product-item">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+            <img src="{% static 'images/product2_image.jpg' %}" alt="Default Image">
+            {% endif %}
+            <h3>{{ product.name }}</h3>  <!-- Product name -->
+            <p>${{ product.price }}</p>  <!-- Product price -->
+            <a href="{% url 'product_detail' product.id %}" class="btn">View Details</a>
+            <p>Product ID: {{ product.id }}</p>
+        </div>
+
+        <div class="product-item">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+            <img src="{% static 'images/product3_image.jpg' %}" alt="Default Image">
+            {% endif %}
+            <h3>{{ product.name }}</h3>  <!-- Product name -->
+            <p>${{ product.price }}</p>  <!-- Product price -->
+            <a href="{% url 'product_detail' product.id %}" class="btn">View Details</a>
+            <p>Product ID: {{ product.id }}</p>
+        </div>
+        <div class="product-item">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+            <img src="{% static 'images/product4_image.jpg' %}" alt="Default Image">
+            {% endif %}
+            <h3>{{ product.name }}</h3>  <!-- Product name -->
+            <p>${{ product.price }}</p>  <!-- Product price -->
+            <a href="{% url 'product_detail' product.id %}" class="btn">View Details</a>
+            <p>Product ID: {{ product.id }}</p>
+        </div>
+
+        <div class="product-item">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+            <img src="{% static 'images/product5_image.jpg' %}" alt="Default Image">
+            {% endif %}
+            <h3>{{ product.name }}</h3>  <!-- Product name -->
+            <p>${{ product.price }}</p>  <!-- Product price -->
+            <a href="{% url 'product_detail' product.id %}" class="btn">View Details</a>
+            <p>Product ID: {{ product.id }}</p>
+        </div>
+
+        <div class="product-item">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+            <img src="{% static 'images/product6_image.jpg' %}" alt="Default Image">
+            {% endif %}
+            <h3>{{ product.name }}</h3>  <!-- Product name -->
+            <p>${{ product.price }}</p>  <!-- Product price -->
+            <a href="{% url 'product_detail' product.id %}" class="btn">View Details</a>
+            <p>Product ID: {{ product.id }}</p>
+        </div>
+
+        <div class="product-item">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+            <img src="{% static 'images/product7_image.jpg' %}" alt="Default Image">
+            {% endif %}
+            <h3>{{ product.name }}</h3>  <!-- Product name -->
+            <p>${{ product.price }}</p>  <!-- Product price -->
+            <a href="{% url 'product_detail' product.id %}" class="btn">View Details</a>
+            <p>Product ID: {{ product.id }}</p>
+        </div>
+
+        <div class="product-item">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            {% else %}
+            <img src="{% static 'images/product8_image.jpg' %}" alt="Default Image">
+            {% endif %}
+            <h3>{{ product.name }}</h3>  <!-- Product name -->
+            <p>${{ product.price }}</p>  <!-- Product price -->
+            <a href="{% url 'product_detail' product.id %}" class="btn">View Details</a>
+            <p>Product ID: {{ product.id }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- New Arrivals Section -->
+<section class="sections-container">
+<section class="new-arrivals">
+    <h2>New Arrivals</h2>
+    <p>Check out the latest products added to our store!</p>
+    <a href="{% url 'product_list' %}" class="btn">Browse New Products</a>
+</section>
+
+<!-- Special Offers Section -->
+<section class="special-offers">
+    <h2>Special Offers</h2>
+    <p>Don't miss out on our limited-time discounts and offers.</p>
+    <a href="{% url 'product_list' %}" class="btn">Shop Offers</a>
+</section>
+
+<!-- Customer Testimonials Section -->
+<section class="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonial">
+        <p>"Great shopping experience! Highly recommend." - John Doe</p>
+    </div>
+    <div class="testimonial">
+        <p>"Fast delivery and excellent customer service." - Jane Smith</p>
+    </div>
+</section>
+
+{% endblock %}

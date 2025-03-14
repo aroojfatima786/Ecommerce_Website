@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - E-Commerce{% endblock %}
+
+{% block content %}
+<h1>Product Added Successfully</h1>
+    <p>Product Name: {{ product.name }}</p>
+    <p>Category: {{ product.category.name }}</p>
+    <p>Price: ${{ product.price }}</p>
+    <p>Description: {{ product.description }}</p>
+    <p>Stock: {{ product.stock }}</p>
+    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+{% endblock %}

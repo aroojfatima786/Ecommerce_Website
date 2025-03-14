@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}FAQ - Frequently Asked Questions{% endblock %}
+
+{% block content %}
+    <style>
+        .faq-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .faq-item h3 {
+            font-size: 18px;
+            cursor: pointer;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .faq-item p {
+            font-size: 16px;
+            color: #555;
+            display: none;
+        }
+
+        .faq-item.active p {
+            display: block;
+        }
+    </style>
+
+    <div class="faq-container">
+        <h1>Frequently Asked Questions</h1>
+
+        <div class="faq-item">
+            <h3>Can I place an order without an account?</h3>
+            <p>No, you need to sign up or log in to place an order.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How can I track my order?</h3>
+            <p>Once your order is confirmed, you will receive an email with tracking details.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What payment methods do you accept?</h3>
+            <p>We accept credit cards, debit cards, and PayPal.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can I cancel or modify my order?</h3>
+            <p>Orders can be modified or canceled within 1 hour of placing the order.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What is your return policy?</h3>
+            <p>We offer a 7-day return policy for unused and undamaged products.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do I contact customer support?</h3>
+            <p>You can reach us via email at support@example.com or call us at (123) 456-7890.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const faqItems = document.querySelectorAll(".faq-item h3");
+
+            faqItems.forEach(item => {
+                item.addEventListener("click", () => {
+                    item.parentElement.classList.toggle("active");
+                });
+            });
+        });
+    </script>
+{% endblock %}

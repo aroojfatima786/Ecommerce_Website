@@ -1,0 +1,442 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Deals | E-Commerce{% endblock %}
+
+{% block content %}
+    <style>
+        .deals-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px;
+            background-color: #f8f9fa;
+        }
+
+        .deal-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            text-align: center;
+            padding: 15px;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .deal-card:hover {
+            transform: scale(1.05);
+        }
+
+        .deal-card img {
+    width: 100%; /* Ensure the image fills the width of the card */
+    height: auto; /* Maintain the aspect ratio of the image */
+    max-width: 100%; /* Prevent image from being stretched beyond the container */
+    max-height: 200px; /* Set a maximum height for the image */
+    object-fit: contain; /* Ensures the entire image fits inside the container without cropping */
+}
+
+
+
+        .deal-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .deal-price {
+            color: #f39c12;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .deal-old-price {
+            text-decoration: line-through;
+            color: gray;
+            margin-left: 5px;
+        }
+
+        .discount-percentage {
+            font-size: 16px;
+            color: green;
+            font-weight: bold;
+        }
+        .view-details {
+    background: #3498db; /* Blue color for the button */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.view-details:hover {
+    background: #2980b9; /* Darker blue on hover */
+}
+
+        .countdown {
+            font-size: 14px;
+            color: red;
+            margin: 10px 0;
+        }
+
+        .buy-now {
+            background: #f39c12;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .buy-now:hover {
+            background: #e67e22;
+        }
+
+        .add-to-cart {
+            background: #2ecc71;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: #27ae60;
+        }
+
+        .rating {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .rating i {
+            color: gold;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .deal-card {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .deal-card {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <div class="deals-container">
+        <!-- Deal 1 -->
+        <div class="deal-card">
+            <img src="{% static 'images/deal1.jpg' %}" alt="Deal 1">
+            <p class="deal-title">Wireless Headphones</p>
+            <p class="deal-price">$49 <span class="deal-old-price">$79</span></p>
+            <p class="discount-percentage">38% OFF</p>
+            <p class="countdown">Limited Time: <span id="timer1"></span></p>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <button class="buy-now" onclick="openModal('Wireless Headphones')">Buy Now</button>
+            <button class="add-to-cart" onclick="addToCart('Wireless Headphones')">Add to Cart</button>
+            <button class="view-details" onclick="viewDetails('Wireless Headphones')">View Details</button>
+        </div>
+
+        <!-- Deal 2 -->
+        <div class="deal-card">
+            <img src="{% static 'images/deal2.jpg' %}" alt="Deal 2">
+            <p class="deal-title">Smartwatch</p>
+            <p class="deal-price">$99 <span class="deal-old-price">$149</span></p>
+            <p class="discount-percentage">33% OFF</p>
+            <p class="countdown">Limited Time: <span id="timer2"></span></p>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half"></i>
+            </div>
+            <button class="buy-now" onclick="openModal('Smartwatch')">Buy Now</button>
+            <button class="add-to-cart" onclick="addToCart('Smartwatch')">Add to Cart</button>
+            <button class="view-details" onclick="viewDetails('Wireless Headphones')">View Details</button>
+        </div>
+        <!-- Deal 3 -->
+        <div class="deal-card">
+            <img src="{% static 'images/deal3.jpg' %}" alt="Deal 3">
+            <p class="deal-title">Bluetooth Speaker</p>
+            <p class="deal-price">$29 <span class="deal-old-price">$59</span></p>
+            <p class="countdown">Limited Time: <span id="timer3"></span></p>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half"></i>
+            </div>
+            <button class="buy-now" onclick="openModal('Smartwatch')">Buy Now</button>
+            <button class="add-to-cart" onclick="addToCart('Smartwatch')">Add to Cart</button>
+            <button class="view-details" onclick="viewDetails('Wireless Headphones')">View Details</button>
+        </div>
+
+        <!-- Deal 4 -->
+        <div class="deal-card">
+            <img src="{% static 'images/deal4.jpg' %}" alt="Deal 4">
+            <p class="deal-title">Portable Charger</p>
+            <p class="deal-price">$19 <span class="deal-old-price">$39</span></p>
+            <p class="countdown">Limited Time: <span id="timer4"></span></p>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half"></i>
+            </div>
+            <button class="buy-now" onclick="openModal('Smartwatch')">Buy Now</button>
+            <button class="add-to-cart" onclick="addToCart('Smartwatch')">Add to Cart</button>
+            <button class="view-details" onclick="viewDetails('Wireless Headphones')">View Details</button>
+        </div>
+
+        <!-- Deal 5 -->
+        <div class="deal-card">
+            <img src="{% static 'images/deal5.jpg' %}" alt="Deal 5">
+            <p class="deal-title">LED Desk Lamp</p>
+            <p class="deal-price">$15 <span class="deal-old-price">$25</span></p>
+            <p class="countdown">Limited Time: <span id="timer5"></span></p>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half"></i>
+            </div>
+            <button class="buy-now" onclick="openModal('Smartwatch')">Buy Now</button>
+            <button class="add-to-cart" onclick="addToCart('Smartwatch')">Add to Cart</button>
+            <button class="view-details" onclick="viewDetails('Wireless Headphones')">View Details</button>
+        </div>
+
+        <!-- Deal 6 -->
+        <div class="deal-card">
+            <img src="{% static 'images/deal6.jpg' %}" alt="Deal 6">
+            <p class="deal-title">Smart TV</p>
+            <p class="deal-price">$399 <span class="deal-old-price">$499</span></p>
+            <p class="countdown">Limited Time: <span id="timer6"></span></p>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half"></i>
+            </div>
+            <button class="buy-now" onclick="openModal('Smartwatch')">Buy Now</button>
+            <button class="add-to-cart" onclick="addToCart('Smartwatch')">Add to Cart</button>
+            <button class="view-details" onclick="viewDetails('Wireless Headphones')">View Details</button>
+        </div>
+
+        <!-- Deal 7 -->
+        <div class="deal-card">
+            <img src="{% static 'images/deal7.jpg' %}" alt="Deal 7">
+            <p class="deal-title">Gaming Mouse</p>
+            <p class="deal-price">$39 <span class="deal-old-price">$59</span></p>
+            <p class="countdown">Limited Time: <span id="timer7"></span></p>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half"></i>
+            </div>
+            <button class="buy-now" onclick="openModal('Smartwatch')">Buy Now</button>
+            <button class="add-to-cart" onclick="addToCart('Smartwatch')">Add to Cart</button>
+            <button class="view-details" onclick="viewDetails('Wireless Headphones')">View Details</button>
+        </div>
+
+        <!-- Deal 8 -->
+        <div class="deal-card">
+            <img src="{% static 'images/deal8.jpg' %}" alt="Deal 8">
+            <p class="deal-title">Laptop Stand</p>
+            <p class="deal-price">$29 <span class="deal-old-price">$49</span></p>
+            <p class="countdown">Limited Time: <span id="timer8"></span></p>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half"></i>
+            </div>
+            <button class="buy-now" onclick="openModal('Smartwatch')">Buy Now</button>
+            <button class="add-to-cart" onclick="addToCart('Smartwatch')">Add to Cart</button>
+            <button class="view-details" onclick="viewDetails('Wireless Headphones')">View Details</button>
+        </div>
+
+        <!-- Deal 9 -->
+        <div class="deal-card">
+            <img src="{% static 'images/deal9.jpg' %}" alt="Deal 9">
+            <p class="deal-title">Smartphone Case</p>
+            <p class="deal-price">$9 <span class="deal-old-price">$19</span></p>
+            <p class="countdown">Limited Time: <span id="timer9"></span></p>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half"></i>
+            </div>
+            <button class="buy-now" onclick="openModal('Smartwatch')">Buy Now</button>
+            <button class="add-to-cart" onclick="addToCart('Smartwatch')">Add to Cart</button>
+            <button class="view-details" onclick="viewDetails('Wireless Headphones')">View Details</button>
+        </div>
+
+        <!-- Deal 10 -->
+        <div class="deal-card">
+            <img src="{% static 'images/deal10.jpg' %}" alt="Deal 10">
+            <p class="deal-title">Fitness Tracker</p>
+            <p class="deal-price">$29 <span class="deal-old-price">$49</span></p>
+            <p class="countdown">Limited Time: <span id="timer10"></span></p>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half"></i>
+            </div>
+            <button class="buy-now" onclick="openModal('Smartwatch')">Buy Now</button>
+            <button class="add-to-cart" onclick="addToCart('Smartwatch')">Add to Cart</button>
+            <button class="view-details" onclick="viewDetails('Wireless Headphones')">View Details</button>
+        </div>
+    </div>
+
+        <!-- Additional Deals... -->
+    </div>
+
+    <!-- Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p><strong>Price: $<span id="modalPrice"></span></strong></p>
+            <p><strong>Discount: </strong><span id="modalDiscount"></span></p>
+            <p>Quantity: <input type="number" id="quantity" value="1" min="1" max="10"></p>
+            <p><button class="add-to-cart" onclick="addToCartModal()">Add to Cart</button></p>
+            <button class="view-details" onclick="viewDetails('Wireless Headphones')">View Details</button>
+        </div>
+    </div>
+
+    <script>
+        function startCountdown(id, duration) {
+            let timer = document.getElementById(id);
+            let endTime = Date.now() + duration * 1000;
+            function updateTimer() {
+                let now = Date.now();
+                let remaining = endTime - now;
+                if (remaining <= 0) {
+                    timer.textContent = "Expired";
+                    return;
+                }
+                let hours = Math.floor((remaining / (1000 * 60 * 60)) % 24);
+                let minutes = Math.floor((remaining / (1000 * 60)) % 60);
+                let seconds = Math.floor((remaining / 1000) % 60);
+                timer.textContent = `${hours}h ${minutes}m ${seconds}s`;
+                setTimeout(updateTimer, 1000);
+            }
+            updateTimer();
+        }
+
+        startCountdown("timer1", 7200); // 2 hours
+        startCountdown("timer2", 10800); // 3 hours
+        startCountdown("timer3", 7200); // 2 hours
+        startCountdown("timer4", 10800); // 3 hours
+        startCountdown("timer5", 14400); // 4 hours
+        startCountdown("timer6", 3600); // 1 hour
+        startCountdown("timer7", 14400); // 4 hours
+        startCountdown("timer8", 7200); // 2 hours
+        startCountdown("timer9", 10800); // 3 hours
+        startCountdown("timer10", 18000); // 5 hours
+
+        function addToCart(item) {
+            alert(item + " has been added to your cart!");
+        }
+        
+        function viewDetails(item) {
+    alert("Viewing details for: " + item);
+    // You can link this to a new page or display details in a modal.
+}
+
+        function openModal(product) {
+            document.getElementById("productModal").style.display = "flex";
+            document.getElementById("modalTitle").textContent = product;
+            // Add dynamic price and discount
+            if (product === 'Wireless Headphones') {
+                document.getElementById("modalPrice").textContent = "49";
+                document.getElementById("modalDiscount").textContent = "38% OFF";
+            } else if (product === 'Smartwatch') {
+                document.getElementById("modalPrice").textContent = "99";
+                document.getElementById("modalDiscount").textContent = "33% OFF";
+            }
+        }
+
+        function closeModal() {
+            document.getElementById("productModal").style.display = "none";
+        }
+
+        function addToCartModal() {
+            let quantity = document.getElementById("quantity").value;
+            alert("Added " + quantity + " item(s) to cart!");
+            closeModal();
+        }
+    </script>
+{% endblock %}

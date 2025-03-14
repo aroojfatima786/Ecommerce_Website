@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %}product-detail - E-Commerce{% endblock %}
+{% load static %}
+{% block content %}
+<section class="product-section">
+    <h1 class="product-heading">Our Products</h1>
+
+    <div class="product-list">
+        <!-- Product 1 -->
+        <div class="product-item">
+            <h2 class="product-title">Product 1</h2>
+            <div class="product-image">
+                <img src="{% static 'images/product1_image.jpg' %}" alt="Product 1">
+            </div>
+            <div class="product-description">
+                <p><strong>Price:</strong> $29.99</p>
+                <p><strong>Description:</strong> A great product for your needs.</p>
+            </div>
+            <div class="product-action">
+                <a href="{% url 'add_to_cart' 1 %}" class="btn">Add to Cart</a>
+            </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-item">
+            <h2 class="product-title">Product 2</h2>
+            <div class="product-image">
+                <img src="{% static 'images/product2_image.jpg' %}" alt="Product 1">
+            </div>
+            <div class="product-description">
+                <p><strong>Price:</strong> $39.99</p>
+                <p><strong>Description:</strong> High quality and durable for long-term use.</p>
+            </div>
+            <div class="product-action">
+                <a href="{% url 'add_to_cart' 2 %}" class="btn">Add to Cart</a>
+            </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-item">
+            <h2 class="product-title">Product 3</h2>
+            <div class="product-image">
+                <img src="{% static 'images/product3_image.jpg' %}" alt="Product 1">
+            </div>
+            <div class="product-description">
+                <p><strong>Price:</strong> $19.99</p>
+                <p><strong>Description:</strong> Perfect for everyday use and convenience.</p>
+            </div>
+            <div class="product-action">
+                <a href="{% url 'add_to_cart' 3 %}" class="btn">Add to Cart</a>
+            </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-item">
+            <h2 class="product-title">Product 4</h2>
+            <div class="product-image">
+                <img src="{% static 'images/product4_image.jpg' %}" alt="Product 1">
+            </div>
+            <div class="product-description">
+                <p><strong>Price:</strong> $24.99</p>
+                <p><strong>Description:</strong> A must-have for tech enthusiasts.</p>
+            </div>
+            <div class="product-action">
+                <a href="{% url 'add_to_cart' 4 %}" class="btn">Add to Cart</a>
+            </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-item">
+            <h2 class="product-title">Product 5</h2>
+            <div class="product-image">
+                <img src="{% static 'images/product5_image.jpg' %}" alt="Product 1">
+            </div>
+            <div class="product-description">
+                <p><strong>Price:</strong> $49.99</p>
+                <p><strong>Description:</strong> Premium quality product for professionals.</p>
+            </div>
+            <div class="product-action">
+                <a href="{% url 'add_to_cart' 5 %}" class="btn">Add to Cart</a>
+            </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-item">
+            <h2 class="product-title">Product 6</h2>
+            <div class="product-image">
+                <img src="{% static 'images/product6_image.jpg' %}" alt="Product 1">
+            </div>
+            <div class="product-description">
+                <p><strong>Price:</strong> $59.99</p>
+                <p><strong>Description:</strong> The ultimate choice for quality and comfort.</p>
+            </div>
+            <div class="product-action">
+                <a href="{% url 'add_to_cart' 6 %}" class="btn">Add to Cart</a>
+            </div>
+        </div>
+
+        <!-- Product 7 -->
+        <div class="product-item">
+            <h2 class="product-title">Product 7</h2>
+            <div class="product-image">
+                <img src="{% static 'images/product7_image.jpg' %}" alt="Product 1">
+            </div>
+            <div class="product-description">
+                <p><strong>Price:</strong> $34.99</p>
+                <p><strong>Description:</strong> Perfect for your home and office.</p>
+            </div>
+            <div class="product-action">
+                <a href="{% url 'add_to_cart' 7 %}" class="btn">Add to Cart</a>
+            </div>
+        </div>
+
+        <!-- Product 8 -->
+        <div class="product-item">
+            <h2 class="product-title">Product 8</h2>
+            <div class="product-image">
+                <img src="{% static 'images/product8_image.jpg' %}" alt="Product 1">
+            </div>
+            <div class="product-description">
+                <p><strong>Price:</strong> $44.99</p>
+                <p><strong>Description:</strong> A well-designed product with innovative features.</p>
+            </div>
+            <div class="product-action">
+                <a href="{% url 'add_to_cart' 8 %}" class="btn">Add to Cart</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
